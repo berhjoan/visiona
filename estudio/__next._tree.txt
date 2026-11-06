@@ -3,4 +3,4 @@
 :HL["/visiona/_next/static/media/7e75aa585bf80471.p.0uclrktt8h78d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"estudio","h":96,"c":"$Q2"}]]
-0:{"b":"2ouhohidQOWfoHv6CGbOd","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"ynyG7Nhm20SGTgWZKyVFR","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
