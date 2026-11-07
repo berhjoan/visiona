@@ -1,6 +1,6 @@
-:HL["/visiona/_next/static/chunks/3_f9resbmiekw.css","style"]
+:HL["/visiona/_next/static/chunks/1trgk_khrp_7m.css","style"]
 :HL["/visiona/_next/static/media/10b40a20e4e62717.p.2dv7oiayrgfo5.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/visiona/_next/static/media/7e75aa585bf80471.p.0uclrktt8h78d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"estado","h":96,"c":"$Q2"}]]
-0:{"b":"dWQ-h5arQI2en9iWNu0uk","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"-pVAicB0ExpLKrM5qLwiy","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

@@ -3,12 +3,12 @@
 // - Modelos, WASM y recursos estáticos: primero caché (son inmutables y pesados).
 // - Páginas: primero red, caché como respaldo.
 // - /api/: nunca se toca (siempre en vivo; nada de respuestas viejas).
-const VERSION = 'visiona-v3';
+const VERSION = 'visiona-v5';
 const SHELL = `${VERSION}-shell`;
 const ASSETS = `${VERSION}-assets`;
 const SCOPE = new URL(self.registration.scope);
 const BASE = SCOPE.pathname.replace(/\/$/, '');
-const PAGES = ['', 'ver/', 'oir/', 'estudio/', 'ajustes/', 'estado/', 'acerca/', 'manifest.webmanifest'].map((p) => new URL(p, SCOPE).toString());
+const PAGES = ['', 'ver/', 'oir/', 'senas/', 'sonidos/', 'estudio/', 'ajustes/', 'estado/', 'acerca/', 'manifest.webmanifest'].map((p) => new URL(p, SCOPE).toString());
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
