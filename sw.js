@@ -1,9 +1,9 @@
 // Service worker de VISIONA: modo sin conexión para la interfaz y los modelos.
 // Funciona en la raíz ("/") o bajo un prefijo ("/visiona/"): todo se calcula desde su scope.
 // - Modelos, WASM y recursos estáticos: primero caché (son inmutables y pesados).
-// - Páginas: primero red, caché como respaldo.
+// - Páginas y modelos incluidos (/modelos/): primero red, caché como respaldo.
 // - /api/: nunca se toca (siempre en vivo; nada de respuestas viejas).
-const VERSION = 'visiona-v6';
+const VERSION = 'visiona-v7';
 const SHELL = `${VERSION}-shell`;
 const ASSETS = `${VERSION}-assets`;
 const SCOPE = new URL(self.registration.scope);
@@ -56,6 +56,22 @@ self.addEventListener('fetch', (event) => {
         if (res.ok) cache.put(req, res.clone());
         return res;
       }),
+    );
+    return;
+  }
+
+  // Modelos incluidos con la app (señas): primero red, para recibir versiones nuevas; sin conexión, la última guardada.
+  if (url.pathname.startsWith(`${BASE}/modelos/`)) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(ASSETS).then((cache) => cache.put(req, copy));
+          }
+          return res;
+        })
+        .catch(async () => (await caches.match(req)) || Response.error()),
     );
     return;
   }
