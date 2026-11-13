@@ -3,11 +3,11 @@
 // Motor: ONNX Runtime Web (MIT). Modelo: D-FINE-S entrenado solo con COCO (pesos Apache-2.0).
 // No se usa la variante N: su ONNX publicado (onnx-community/dfine_n_coco-ONNX) devuelve el mismo
 // objeto muchas veces y con poca confianza, también con Transformers.js (medido el 9-11-2026).
-import { pickOutputs, postprocess, preprocess } from './dfine-core.js';
+import { LAB_MODEL, pickOutputs, postprocess, preprocess } from './dfine-core.js';
 
 const ORT_BASE = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.1/dist/';
-const MODEL_URL = 'https://huggingface.co/onnx-community/dfine_s_coco-ONNX/resolve/a3cf03147a9b86c78475139115c8ac142577352d/onnx/model.onnx';
-const SIZE = 640;
+const MODEL_URL = LAB_MODEL.url;
+const SIZE = LAB_MODEL.input;
 
 let ort = null;
 let session = null;
@@ -111,7 +111,7 @@ async function frame({ id, width, height, buffer }) {
   const outputs = await session.run({ [inputName]: input });
   const t2 = performance.now();
   const { logits, boxes } = pickOutputs(outputs);
-  const detections = postprocess(logits.data, boxes.data);
+  const detections = postprocess(logits.data, boxes.data, { labels: LAB_MODEL.labels });
   post({ type: 'result', id, inferMs: t2 - t1, totalMs: performance.now() - t0, detections });
 }
 

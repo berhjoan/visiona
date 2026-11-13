@@ -1,0 +1,8 @@
+:HL["/visiona/_next/static/chunks/3jvi-rb7oow1o.css","style"]
+:HL["/visiona/_next/static/media/10b40a20e4e62717.p.2dv7oiayrgfo5.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/visiona/_next/static/media/7e75aa585bf80471.p.0uclrktt8h78d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/visiona/_next/static/chunks/3sadvb6nw75lu.css","style"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"objetos","h":96,"c":"$Q3"}]]
+1:[["children",{"s":"entrenar","h":96,"c":"$Q2"}]]
+0:{"b":"DEBQBuH9IVv7xAXgS3A1n","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

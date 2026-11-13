@@ -12,6 +12,17 @@ export const COCO_80 = Object.freeze([
   'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush',
 ]);
 
+/**
+ * El paquete del modelo de la prueba: de dónde se baja (una versión fija), a qué tamaño trabaja y
+ * sus clases en el orden de salida. Un detector entrenado por VISIONA entra cambiando solo esto.
+ */
+export const LAB_MODEL = Object.freeze({
+  id: 'dfine_s_coco',
+  url: 'https://huggingface.co/onnx-community/dfine_s_coco-ONNX/resolve/a3cf03147a9b86c78475139115c8ac142577352d/onnx/model.onnx',
+  input: 640,
+  labels: COCO_80,
+});
+
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
 /**
@@ -29,10 +40,11 @@ export function preprocess(rgba, width, height, out = new Float32Array(3 * width
 }
 
 /**
- * Salida del modelo → detecciones. Cada una de las 300 consultas da 80 logits y una caja
- * (centro x, centro y, ancho, alto, normalizados). Un DETR no necesita NMS: cada objeto sale una vez.
+ * Salida del modelo → detecciones. Cada consulta da un logit por clase y una caja (centro x,
+ * centro y, ancho, alto, normalizados). Un DETR no necesita NMS: cada objeto sale una vez.
+ * `labels` son las clases del modelo en su orden de salida (por defecto, las 80 de COCO).
  */
-export function postprocess(logits, boxes, { classes = COCO_80.length, threshold = 0.5, max = 20 } = {}) {
+export function postprocess(logits, boxes, { labels = COCO_80, classes = labels.length, threshold = 0.5, max = 20 } = {}) {
   const queries = boxes.length / 4;
   const found = [];
   for (let q = 0; q < queries; q++) {
@@ -53,7 +65,7 @@ export function postprocess(logits, boxes, { classes = COCO_80.length, threshold
     const x1 = clamp01(cx + w / 2);
     const y1 = clamp01(cy + h / 2);
     if (!(x1 > x0 && y1 > y0)) continue;
-    found.push({ label: COCO_80[cls], score, box: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 } });
+    found.push({ label: labels[cls], score, box: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 } });
   }
   found.sort((a, b) => b.score - a.score);
   return found.slice(0, max);
