@@ -3,12 +3,12 @@
 // - Modelos, WASM y recursos estáticos: primero caché (son inmutables y pesados).
 // - Páginas y modelos incluidos (/modelos/): primero red, caché como respaldo.
 // - /api/: nunca se toca (siempre en vivo; nada de respuestas viejas).
-const VERSION = 'visiona-v7';
+const VERSION = 'visiona-v8';
 const SHELL = `${VERSION}-shell`;
 const ASSETS = `${VERSION}-assets`;
 const SCOPE = new URL(self.registration.scope);
 const BASE = SCOPE.pathname.replace(/\/$/, '');
-const PAGES = ['', 'ver/', 'oir/', 'senas/', 'sonidos/', 'estudio/', 'entrenar/', 'entrenar/senas/', 'entrenar/objetos/', 'ajustes/', 'estado/', 'acerca/', 'manifest.webmanifest'].map((p) => new URL(p, SCOPE).toString());
+const PAGES = ['', 'ver/', 'oir/', 'senas/', 'sonidos/', 'estudio/', 'guia/', 'entrenar/', 'entrenar/senas/', 'entrenar/objetos/', 'ajustes/', 'estado/', 'acerca/', 'manifest.webmanifest'].map((p) => new URL(p, SCOPE).toString());
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -36,6 +36,7 @@ function isAsset(url) {
     p.startsWith(`${BASE}/mediapipe/`) ||
     p.startsWith(`${BASE}/_next/static/`) ||
     p.startsWith(`${BASE}/icons/`) ||
+    p.startsWith(`${BASE}/capturas/`) ||
     url.hostname === 'cdn.jsdelivr.net' ||
     url.hostname === 'storage.googleapis.com'
   );
